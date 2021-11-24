@@ -139,10 +139,12 @@ function callSquareRoot() {
     grpc.credentials.createInsecure()
   );
 
+  const timeAllowed = 1000;
   const request = new calc.SquareRootRequest();
   request.setNumber(16);
 
-  client.squareRoot(request, (err, response) => {
+  const deadline = new Date(Date.now() + timeAllowed);
+  client.squareRoot(request, { deadline }, (err, response) => {
     if (!err) {
       console.log('Result ' + response.getNumberRoot());
     } else {
